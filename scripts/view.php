@@ -1,6 +1,9 @@
 <?php
 
 require_once("common.php");
-
 header("Content-Type: application/rss+xml");
-echo file_get_contents("gs://#default#/feed_dilbert_default");
+header('Expires: ' . gmdate('D, d M Y H:i:s', time() + (60*60*2)) . ' GMT');
+header('Cache-Control: public, must-revalidate, max-age=7200');
+
+$view = $container['view'];
+echo $view->getFeed($_SERVER['REQUEST_URI']);

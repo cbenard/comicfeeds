@@ -3,7 +3,14 @@
 header("Content-Type: text/plain");
 require_once("common.php");
 
+$dilbert = $container['dilbert'];
+$dilbert->fetchAndStore();
+
+/*
+
 $feed = "http://dilbert.com/feed.rss";
+$pattern = '/data-image="(.+?)"/';
+
 $doc = simplexml_load_file($feed) or die('Unable to load XML');
 
 $count = count($doc->entry);
@@ -51,3 +58,4 @@ $outputXml = $doc->asXml();
 print_r($outputXml);
 
 file_put_contents("gs://#default#/feed_dilbert_default", $outputXml);
+*/
