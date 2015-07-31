@@ -15,6 +15,9 @@ $container['feed'] = function($c) {
 $container['dilbert'] = function($c) {
     return new DilbertService($c['feed'], $c['logger'], $c['storage']);
 };
+$container['pennyarcade'] = function($c) {
+    return new PennyArcadeService($c['feed'], $c['logger'], $c['storage']);
+};
 $container['view'] = function ($c) {
     return new ViewService($c['logger'], $c['storage']);
 };

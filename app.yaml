@@ -1,5 +1,5 @@
 application: comicfeeds-1022
-version: 3
+version: 4
 runtime: php55
 api_version: 1
 threadsafe: no
@@ -12,8 +12,8 @@ handlers:
 - url: /view/(dilbert|pennyarcade)/(.+)
   script: scripts/view.php
   
-- url: /fetch/(dilbert|pennyarcade)/?
-  script: scripts/fetch_\1.php
+- url: /fetch/(dilbert|pennyarcade)
+  script: scripts/fetch.php
 
 - url: /.*
   static_files: index.html

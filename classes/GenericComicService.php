@@ -27,18 +27,28 @@ class GenericComicService {
 	
 	protected function fetch() {
 		$doc = $this->feedService->fetchFeed($this->feed);
+
+		if (isset($doc->entry)) {
+			$entries = $doc->entry;
+		} else if (isset($doc->channel) && isset($doc->channel->item)) {
+			$entries = $doc->channel->item;
+		}
 		
-		$count = count($doc->entry);
+		if (!isset($entries)) {
+			throw new Exception('Unable to detect <item> or <entry> nodes.');
+		}
+		
+		$count = count($entries);
+
 		if ($count < 1) {
 			throw new Exception("No entries found in feed {$this->feed}.");
 		}
 
 		for ($i = $count - 1; $i >= 0; $i--) {
-			$entry = $doc->entry[$i];
+			$entry = $entries[$i];
 			if (strpos($entry->title, $this->entrySearchText) === FALSE) {
-				unset($doc->entry[$i]);
-			}
-			else {
+				unset($entries[$i]);
+			} else {
 				$this->log->log("Processing $entry->title...");
 				
 				if (isset($entry->description)) {
@@ -63,7 +73,15 @@ class GenericComicService {
 	}
 	
 	private function getEntryContents(SimpleXMLElement $entry) {
-		$url = $entry->link['href'];
+		if (!isset($entry->link)) {
+			throw new Exception("Link element was not present");
+		}
+		
+		$url = $entry->link['href'] ? $entry->link['href'] : (string)$entry->link;
+		if (!$url) {
+			throw new Exception("Unable to detect link URL.");
+		}
+		
 		$this->log->log("\tFetching URL: $url");
 		$contents = $this->feedService->fetchPageContents($url);
 		
