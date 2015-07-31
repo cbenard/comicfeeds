@@ -3,3 +3,7 @@ appengine-generated/
 
 # Visual Studio Code
 .settings/
+
+# Composer (PHP)
+composer.phar
+vendor/
