@@ -1,0 +1,4 @@
+cron:
+- description: Fetch Dilbert
+  url: /fetch/dilbert
+  schedule: every 2 hours
