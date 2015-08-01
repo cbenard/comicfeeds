@@ -73,14 +73,7 @@ class GenericComicService {
 	}
 	
 	private function getEntryContents(SimpleXMLElement $entry) {
-		if (!isset($entry->link)) {
-			throw new Exception("Link element was not present");
-		}
-		
-		$url = $entry->link['href'] ? $entry->link['href'] : (string)$entry->link;
-		if (!$url) {
-			throw new Exception("Unable to detect link URL.");
-		}
+		$url = $this->feedService->getLinkFromEntry($entry);
 		
 		$this->log->log("\tFetching URL: $url");
 		$contents = $this->feedService->fetchPageContents($url);

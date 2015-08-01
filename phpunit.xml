@@ -1,0 +1,7 @@
+<phpunit bootstrap="tests/autoload.php">
+  <testsuites>
+    <testsuite name="Feed Functionality">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>

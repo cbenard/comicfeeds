@@ -45,7 +45,15 @@ class FeedService {
 	}
 	
 	public function getLinkFromEntry(SimpleXMLElement $entry) {
-		$url = $entry->link['href'];
+		if (!isset($entry->link)) {
+			throw new Exception("Link element was not present");
+		}
+		
+		$url = $entry->link['href'] ? $entry->link['href'] : (string)$entry->link;
+		if (!$url) {
+			throw new Exception("Unable to detect link URL.");
+		}
+		
 		return $url;
 	}
 	

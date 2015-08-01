@@ -1,5 +1,5 @@
 application: comicfeeds-1022
-version: 6
+version: 7
 runtime: php55
 api_version: 1
 threadsafe: no
