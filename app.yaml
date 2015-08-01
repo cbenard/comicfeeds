@@ -21,3 +21,13 @@ handlers:
 - url: /.*
   static_files: index.html
   upload: index\.html
+  
+skip_files:
+- ^tests/.*
+- ^vendor/phpunit/.*
+- ^vendor/bin/.*
+- ^vendor/phpdocumentor/.*
+- ^vendor/phpspec/.*
+- ^vendor/sebastian/.*
+- ^vendor/symfony/.*
+- ^vendor/doctrine/.*
