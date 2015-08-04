@@ -1,12 +1,9 @@
 <?php
 	
-class GenericComicService {
-	protected $feed;
+abstract class GenericComicService {
 	protected $feedService;
 	protected $log;
-	protected $pattern;
-	protected $entrySearchText;
-	protected $name;
+	protected $majorName;
 	protected $store;
 
 	public function __construct(
@@ -15,18 +12,20 @@ class GenericComicService {
 
 		$this->feedService = $feedService;
 		$this->log = $logger;
-		$this->name = $name;
+		$this->majorName = $name;
 		$this->store = $store;
 	}
 	
-	public function fetchAndStore() {
-		$xml = $this->fetch();
-		$filename = "feed_" . $this->name;
+	abstract public function fetchAllAndStore();
+	
+	protected function fetchAndStore(FeedFetchOptions $config) {
+		$xml = $this->fetch($config);
+		$filename = "feed_" . $this->majorName . '_' . $config->name;
 		$this->store->save($filename, $xml);
 	}
 	
-	protected function fetch() {
-		$doc = $this->feedService->fetchFeed($this->feed);
+	protected function fetch(FeedFetchOptions $config) {
+		$doc = $this->feedService->fetchFeed($config->feedUri);
 
 		if (isset($doc->entry)) {
 			$entries = $doc->entry;
@@ -46,7 +45,7 @@ class GenericComicService {
 
 		for ($i = $count - 1; $i >= 0; $i--) {
 			$entry = $entries[$i];
-			if (strpos($entry->title, $this->entrySearchText) === FALSE) {
+			if (strpos($entry->title, $config->entrySearchText) === FALSE) {
 				unset($entries[$i]);
 			} else {
 				$this->log->log("Processing $entry->title...");
@@ -61,7 +60,7 @@ class GenericComicService {
 					unset($entry->content);
 				}
 				
-				$newContents = $this->getEntryContents($entry);
+				$newContents = $this->getEntryContents($config, $entry);
 				$domNode = dom_import_simplexml($entry->description);
 				$owner = $domNode->ownerDocument;
 				$domNode->appendChild($owner->createCDATASection($newContents));
@@ -69,16 +68,36 @@ class GenericComicService {
 			}
 		}
 		print_r($doc);
-		return $doc->asXml();
+		$xmlString = $doc->asXml();
+		
+		if ($config->shouldTranslateAtomToRss) {
+			$xmlString = $this->translateAtomToRss($xmlString);
+		}
+		
+		return $xmlString;
 	}
 	
-	private function getEntryContents(SimpleXMLElement $entry) {
+	// From: http://atom.geekhood.net/
+	protected function translateAtomToRss($input) {
+		$chan = new DOMDocument();
+		$chan->loadXML($input); /* load channel */
+		$sheet = new DOMDocument();
+		$sheet->load(__DIR__ . '/../atom2rss.xsl'); /* use stylesheet from this page */
+		$processor = new XSLTProcessor();
+		$processor->registerPHPFunctions();
+		$processor->importStylesheet($sheet);
+		$result = $processor->transformToXML($chan); /* transform to XML string (there are other options - see PHP manual)  */
+		
+		return $result;
+	}
+	
+	private function getEntryContents(FeedFetchOptions $config, SimpleXMLElement $entry) {
 		$url = $this->feedService->getLinkFromEntry($entry);
 		
 		$this->log->log("\tFetching URL: $url");
 		$contents = $this->feedService->fetchPageContents($url);
 		
-		$imageUrl = $this->feedService->getImageUrl($contents, $this->pattern);
+		$imageUrl = $this->feedService->getImageUrl($contents, $config->pattern);
 		
 		$newContents = "<img src=\"$imageUrl\"/>";
 		

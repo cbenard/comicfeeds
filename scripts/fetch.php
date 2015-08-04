@@ -7,4 +7,4 @@ $feed = $container['feed'];
 $feedName = $feed->getFeedName($_SERVER['REQUEST_URI']);
 
 $comic = $container[$feedName];
-$comic->fetchAndStore();
+$comic->fetchAllAndStore();
