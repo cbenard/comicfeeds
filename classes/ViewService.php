@@ -11,7 +11,8 @@ class ViewService {
 	
 	public function getFeed($requestUri) {
 		$pattern = "@^/view/(.+?)/(.+?)$@";
-		$ret = preg_match($pattern, $requestUri, $matches);
+		$requestUriWithoutQuery = strtok($requestUri, '?');
+		$ret = preg_match($pattern, $requestUriWithoutQuery, $matches);
 		
 		if ($ret === FALSE) {
 			throw new Exception("Regex error occurred.");
