@@ -1,5 +1,6 @@
 # Google App Engine generated folder
 appengine-generated/
+app.yaml
 
 # Visual Studio Code
 .settings/
