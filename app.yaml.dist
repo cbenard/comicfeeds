@@ -1,5 +1,5 @@
-application: comicfeeds-1022
-version: 10
+application: [replace with your app id from developer console]
+version: [start with 1 and increment on each deploy]
 runtime: php55
 api_version: 1
 threadsafe: no
