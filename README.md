@@ -9,7 +9,10 @@ Please see my [blog post](http://chrisbenard.net/2013/06/28/how-to-fix-the-dilbe
 3. Download and install [composer](https://getcomposer.org/doc/00-intro.md) (dependency manager for PHP).
 4. Run `composer install` in the application directory to download dependencies into the vendor/ directory.
 5. Run `vendor/phpunit/phpunit/phpunit` to execute all tests. 
-6. Modify `app.yaml` and replace the `application` and `version` as directed from your Google developer console.
+6. Copy `app.yaml.dist` to `app.yaml`.
+7. Replace `application` in `app.yaml` with the Application ID from [Google developer console](https://console.developers.google.com).
+8. Replace `version` in `app.yaml` with `1` to start and increment on each deployment.
+9. Refer to Google's developer information for more information on deploying to the production app engine and testing with the local SDK tools.
 
 ## Contributing
 Pull requests are welcome, especially to include more comic providers. Please see the [Dilbert Service](classes/DilbertService.php) (multiple sub-feeds) and [Penny-Arcade Service](classes/PennyArcadeService.php) (single feed) for examples.
