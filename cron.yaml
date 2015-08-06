@@ -6,3 +6,7 @@ cron:
 - description: Fetch Penny-Arcade
   url: /fetch/pennyarcade
   schedule: every 2 hours
+  
+- description: Fetch W.T. Duck
+  url: /fetch/wtduck
+  schedule: every 2 hours

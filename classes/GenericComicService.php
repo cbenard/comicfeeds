@@ -94,7 +94,6 @@ abstract class GenericComicService {
 	private function getEntryContents(FeedFetchOptions $config, SimpleXMLElement $entry) {
 		$url = $this->feedService->getLinkFromEntry($entry);
 		
-		$this->log->log("\tFetching URL: $url");
 		$contents = $this->feedService->fetchPageContents($url);
 		
 		$imageUrl = $this->feedService->getImageUrl($contents, $config->pattern);

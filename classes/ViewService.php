@@ -28,6 +28,13 @@ class ViewService {
 		$feedType = $matches[2];
 		$filename = "feed_{$feedName}_{$feedType}";
 		
-		return $this->store->load($filename);
+		$rawContents = $this->store->load($filename);
+		$cleanedContents = $this->sanitizeXml($rawContents);
+		return $cleanedContents;
+	}
+	
+	// From: http://stackoverflow.com/a/29418829/448
+	protected function sanitizeXml($rawContents) {
+		return preg_replace('/<\?xml\-[^>]+\?>\r?\n?/im', '', $rawContents);
 	}
 }
