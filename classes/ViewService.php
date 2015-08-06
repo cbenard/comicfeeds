@@ -10,7 +10,7 @@ class ViewService {
 	}
 	
 	public function getFeed($requestUri) {
-		$pattern = "@^/view/(.+?)/(.+?)$@";
+		$pattern = "@^/view/(\w+?)/(\w+?)$@";
 		$requestUriWithoutQuery = strtok($requestUri, '?');
 		$ret = preg_match($pattern, $requestUriWithoutQuery, $matches);
 		

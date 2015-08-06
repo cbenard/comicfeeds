@@ -8,7 +8,7 @@ class FeedService {
 	}
 
 	public function getFeedName($requestUri) {
-		$pattern = "@^/fetch/(.+)$@";
+		$pattern = "@^/fetch/(\w+)$@";
 		$ret = preg_match($pattern, $requestUri, $matches);
 		
 		if ($ret === FALSE) {

@@ -9,14 +9,16 @@ handlers:
   static_files: favicon.ico
   upload: favicon\.ico
 
-- url: /view/(dilbert|pennyarcade)/(.+)
+- url: /view/(\w+)/(\w+)
   script: scripts/view.php
   
-- url: /fetch/(dilbert|pennyarcade)
+- url: /fetch/(\w+)
   script: scripts/fetch.php
+  login: admin
 
 - url: /version
   script: scripts/version.php
+  login: admin
 
 - url: /.*
   script: scripts/index.php
