@@ -19,9 +19,16 @@ abstract class GenericComicService {
 	abstract public function fetchAllAndStore();
 	
 	protected function fetchAndStore(FeedFetchOptions $config) {
-		$xml = $this->fetch($config);
 		$filename = "feed_" . $this->majorName . '_' . $config->name;
+		$xml = $this->fetch($config);
+		$xml = $this->sanitizeXml($xml);
 		$this->store->save($filename, $xml);
+	}
+	
+	// From: http://stackoverflow.com/a/29418829/448
+	protected function sanitizeXml($rawContents) {
+		$rawContents = preg_replace('/<\?xml\-[^>]+\?>\r?\n?/im', '', $rawContents);
+		return $rawContents;
 	}
 	
 	protected function fetch(FeedFetchOptions $config) {
@@ -49,21 +56,28 @@ abstract class GenericComicService {
 				unset($entries[$i]);
 			} else {
 				$this->log->log("Processing $entry->title...");
+				$newContents = $this->getEntryContents($config, $entry);
 				
 				if (isset($entry->description)) {
-					$entry->description = '';
-				} else {
-					$entry->addChild("description");
+					$entry->description = $newContents;
 				}
 				
 				if (isset($entry->content)) {
-					unset($entry->content);
+					$entry->content = $newContents;
 				}
 				
-				$newContents = $this->getEntryContents($config, $entry);
-				$domNode = dom_import_simplexml($entry->description);
-				$owner = $domNode->ownerDocument;
-				$domNode->appendChild($owner->createCDATASection($newContents));
+				// if (isset($entry->content)) {
+				// 	unset($entry->content);
+				// }
+				
+				// Feedly and others don't like CDATA
+				// $domNode = dom_import_simplexml($entry->description);
+				// $owner = $domNode->ownerDocument;
+				// $domNode->appendChild($owner->createCDATASection($newContents));
+				
+				// Append escaped instead
+				// $entry->description = $newContents;
+				
 				$this->log->log("\tDone.\n");
 			}
 		}
