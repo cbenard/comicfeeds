@@ -2,7 +2,13 @@ application: [replace with your app id from developer console]
 version: [start with 1 and increment on each deploy]
 runtime: php55
 api_version: 1
-threadsafe: no
+threadsafe: true
+instance_class: F1
+automatic_scaling:
+  min_idle_instances: 0
+  max_idle_instances: 1
+  min_pending_latency: 3000ms
+  max_pending_latency: 5000ms
 
 handlers:
 - url: /favicon\.ico
