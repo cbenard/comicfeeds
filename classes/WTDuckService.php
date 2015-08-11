@@ -1,7 +1,7 @@
 <?php
 	
 class WTDuckService extends GenericComicService {
-	const FEED_URI = 'http://feeds.feedburner.com/uclick/wtduck?format=xml';
+	const FEED_URI = 'http://www.gocomics.com/wtduck/rss.pxml';
 	const PATTERN = '/<span class=\'zoom_link\'>.+?<img.+?src="(.+?)"/';
 
 	const ENTRY_SEARCH_TEXT = ", 2";

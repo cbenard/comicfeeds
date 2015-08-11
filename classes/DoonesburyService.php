@@ -1,7 +1,7 @@
 <?php
 	
 class DoonesburyService extends GenericComicService {
-	const FEED_URI = 'http://feeds.feedburner.com/uclick/doonesbury?format=xml';
+	const FEED_URI = 'http://www.gocomics.com/doonesbury/rss.pxml';
 	const PATTERN = '/<span class=\'zoom_link\'>.+?<img.+?src="(.+?)"/';
 
 	const ENTRY_SEARCH_TEXT = ", 2";
