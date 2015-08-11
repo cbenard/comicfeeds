@@ -21,6 +21,9 @@ $container['pennyarcade'] = function($c) {
 $container['wtduck'] = function($c) {
     return new WTDuckService($c['feed'], $c['logger'], $c['storage']);
 };
+$container['doonesbury'] = function($c) {
+    return new DoonesburyService($c['feed'], $c['logger'], $c['storage']);
+};
 $container['view'] = function ($c) {
     return new ViewService($c['logger'], $c['storage']);
 };
