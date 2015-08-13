@@ -6,8 +6,11 @@ $container = new Container();
 $container['logger'] = function($c) {
     return new Logger;
 };
+$container['cache'] = function($c) {
+    return new CacheService;
+};
 $container['storage'] = function($c) {
-    return new StorageService;
+    return new StorageService($c['cache']);
 };
 $container['feed'] = function($c) {
     return new FeedService($c['logger']);
