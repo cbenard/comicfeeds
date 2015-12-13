@@ -54,7 +54,7 @@ class FeedService {
 			throw new Exception("Unable to detect link URL.");
 		}
 		
-		return $url;
+		return trim($url);
 	}
 	
 	public function getImageUrl($contents, $regexPattern) {
