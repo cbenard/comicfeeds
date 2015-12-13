@@ -27,6 +27,9 @@ $container['wtduck'] = function($c) {
 $container['doonesbury'] = function($c) {
     return new DoonesburyService($c['feed'], $c['logger'], $c['storage']);
 };
+$container['pvp'] = function($c) {
+    return new PVPService($c['feed'], $c['logger'], $c['storage']);
+};
 $container['view'] = function ($c) {
     return new ViewService($c['logger'], $c['storage']);
 };
