@@ -7,8 +7,8 @@ instance_class: F1
 automatic_scaling:
   min_idle_instances: 0
   max_idle_instances: 1
-  min_pending_latency: 3000ms
-  max_pending_latency: 5000ms
+  min_pending_latency: 15000ms
+  max_pending_latency: 15000ms
 
 handlers:
 - url: /favicon\.ico
