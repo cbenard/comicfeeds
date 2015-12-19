@@ -30,6 +30,9 @@ $container['doonesbury'] = function($c) {
 $container['pvp'] = function($c) {
     return new PVPService($c['feed'], $c['logger'], $c['storage']);
 };
+$container['tabletitans'] = function($c) {
+    return new TableTitansService($c['feed'], $c['logger'], $c['storage']);
+};
 $container['view'] = function ($c) {
     return new ViewService($c['logger'], $c['storage']);
 };
