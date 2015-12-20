@@ -6,7 +6,7 @@ class TableTitansService extends GenericComicService {
     const ENTRY_SEARCH_TEXT = "Latest Adventure:";
 
     public function __construct(FeedService $feedService, Logger $logger, StorageService $store) {
-        parent::__construct("pvp", $feedService, $logger, $store);
+        parent::__construct("tabletitans", $feedService, $logger, $store);
     }
 
     private function getConfig() {
