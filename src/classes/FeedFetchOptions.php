@@ -1,4 +1,5 @@
 <?php
+namespace Comicfeeds;
 
 class FeedFetchOptions {
 	public $feedUri;

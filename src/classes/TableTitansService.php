@@ -1,12 +1,13 @@
 <?php
+namespace Comicfeeds;
 
-class PVPService extends GenericComicService {
-    const FEED_URI = 'http://www.pvponline.com/feed';
-    const PATTERN = '/class="comic-art">.*?<img src="(.+?)"/s';
-    const ENTRY_SEARCH_TEXT = "Comic: ";
+class TableTitansService extends GenericComicService {
+    const FEED_URI = 'http://tabletitans.com/feed';
+    const PATTERN = '/class="comic row".*?<img src="(.+?)"/s';
+    const ENTRY_SEARCH_TEXT = "Latest Adventure:";
 
     public function __construct(FeedService $feedService, Logger $logger, StorageService $store) {
-        parent::__construct("pvp", $feedService, $logger, $store);
+        parent::__construct("tabletitans", $feedService, $logger, $store);
     }
 
     private function getConfig() {

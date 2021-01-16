@@ -1,4 +1,5 @@
 <?php
+namespace Comicfeeds;
 	
 class DilbertService extends GenericComicService {
 	const FEED_URI = 'http://dilbert.com/feed';

@@ -1,4 +1,5 @@
 <?php
+namespace Comicfeeds;
 	
 abstract class GenericComicService {
 	protected $feedService;
@@ -41,13 +42,13 @@ abstract class GenericComicService {
 		}
 		
 		if (!isset($entries)) {
-			throw new Exception('Unable to detect <item> or <entry> nodes.');
+			throw new \Exception('Unable to detect <item> or <entry> nodes.');
 		}
 		
 		$count = count($entries);
 
 		if ($count < 1) {
-			throw new Exception("No entries found in feed {$this->feed}.");
+			throw new \Exception("No entries found in feed {$this->feed}.");
 		}
 
 		for ($i = $count - 1; $i >= 0; $i--) {
@@ -81,7 +82,7 @@ abstract class GenericComicService {
 				$this->log->log("\tDone.\n");
 			}
 		}
-		print_r($doc);
+		// print_r($doc);
 		$xmlString = $doc->asXml();
 		
 		if ($config->shouldTranslateAtomToRss) {
@@ -93,11 +94,11 @@ abstract class GenericComicService {
 	
 	// From: http://atom.geekhood.net/
 	protected function translateAtomToRss($input) {
-		$chan = new DOMDocument();
+		$chan = new \DOMDocument();
 		$chan->loadXML($input); /* load channel */
-		$sheet = new DOMDocument();
+		$sheet = new \DOMDocument();
 		$sheet->load(__DIR__ . '/../atom2rss.xsl'); /* use stylesheet from this page */
-		$processor = new XSLTProcessor();
+		$processor = new \XSLTProcessor();
 		$processor->registerPHPFunctions();
 		$processor->importStylesheet($sheet);
 		$result = $processor->transformToXML($chan); /* transform to XML string (there are other options - see PHP manual)  */
@@ -105,7 +106,7 @@ abstract class GenericComicService {
 		return $result;
 	}
 	
-	private function getEntryContents(FeedFetchOptions $config, SimpleXMLElement $entry) {
+	private function getEntryContents(FeedFetchOptions $config, \SimpleXMLElement $entry) {
 		$url = $this->feedService->getLinkFromEntry($entry);
 		
 		$contents = $this->feedService->fetchPageContents($url);

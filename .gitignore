@@ -4,7 +4,14 @@ app.yaml
 
 # Visual Studio Code
 .settings/
+.vscode/
 
 # Composer (PHP)
 composer.phar
 vendor/
+
+# PHPUnit
+.phpunit.result.cache
+
+# Our cache
+cache/

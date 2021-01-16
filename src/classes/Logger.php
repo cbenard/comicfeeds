@@ -1,4 +1,5 @@
 <?php
+namespace Comicfeeds;
 	
 class Logger {
 	public function log($text) {

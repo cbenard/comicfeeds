@@ -1,4 +1,5 @@
 <?php
+namespace Comicfeeds;
 	
 class PennyArcadeService extends GenericComicService {
 	const FEED_URI = 'http://penny-arcade.com/feed';
