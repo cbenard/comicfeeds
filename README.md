@@ -9,12 +9,12 @@ Please see my [blog post](http://chrisbenard.net/2013/06/28/how-to-fix-the-dilbe
 
 ## Easily Test with Docker
 1. [Install Docker](https://docs.docker.com/engine/install/ubuntu/).
-2. Run `docker run -e SELF_SERVE=1 --rm -it -p 127.0.0.1:8080:8080 --name comicfeeds cbenard/comicfeeds:latest`
+2. Run `docker run -e SELF_SERVE=1 --rm -it -p 127.0.0.1:8080:8080 --name comicfeeds clbenard/comicfeeds:latest`
 3. Open your web browser to `https://127.0.0.1:8080/view/dilbert/default` to test.
 4. Press Ctrl+C to exit.
 5. To upgrade to the newest version:
    1. Press Ctrl+C to exit.
-   2. Run `docker pull cbenard/comicfeeds:latest`
+   2. Run `docker pull clbenard/comicfeeds:latest`
    3. Run the commands in this section again to restart the application.
 
 ## Permanent Installation with Docker
@@ -23,7 +23,7 @@ Please see my [blog post](http://chrisbenard.net/2013/06/28/how-to-fix-the-dilbe
 3. Replace instances of `redis` with `comicfeeds` in the first example.
 4. The last `ExecStart=` line should be:
 
-    ```ExecStart=/usr/bin/docker run --rm -it -p 127.0.0.1:9001:9000 --name %n cbenard/comicfeeds:latest```
+    ```ExecStart=/usr/bin/docker run --rm -it -p 127.0.0.1:9001:9000 --name %n clbenard/comicfeeds:latest```
 5. After the `Restart=always` line, add the following line:
 
     ```RestartSec=5```
