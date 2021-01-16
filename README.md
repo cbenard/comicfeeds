@@ -10,7 +10,7 @@ Please see my [blog post](http://chrisbenard.net/2013/06/28/how-to-fix-the-dilbe
 ## Easily Test with Docker
 1. [Install Docker](https://docs.docker.com/engine/install/ubuntu/).
 2. Run `docker run -e SELF_SERVE=1 --rm -it -p 127.0.0.1:8080:8080 --name comicfeeds clbenard/comicfeeds:latest`
-3. Open your web browser to `https://127.0.0.1:8080/view/dilbert/default` to test.
+3. Open your web browser to `http://127.0.0.1:8080/view/dilbert/default` to test.
 4. Press Ctrl+C to exit.
 5. To upgrade to the newest version:
    1. Press Ctrl+C to exit.
