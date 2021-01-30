@@ -29,19 +29,20 @@ RUN set -xe; \
             | sort -u \
             | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
     )" \
-    && apk add --no-cache $runDeps \
+    && apk add --no-cache $runDeps supervisor \
     \
     && apk del --no-network .php-ext-install-deps
 
 # Our stuff
 COPY docker/crontab.txt /crontab.txt
-COPY docker/entry.sh /entry.sh
+COPY docker/serve.sh /serve.sh
 COPY docker/fetch.sh /fetch.sh
+COPY docker/supervisord.conf /etc/supervisord.conf
 COPY src /app
 COPY --from=composer /usr/bin/composer /composer
 
 RUN cat /crontab.txt >> /etc/crontabs/root \
-    && chmod 755 /entry.sh /fetch.sh \
+    && chmod 755 /serve.sh /fetch.sh \
     && cd /app \
     && /composer install --no-dev \
     && /composer require phpunit/phpunit \
@@ -51,4 +52,5 @@ RUN cat /crontab.txt >> /etc/crontabs/root \
     # Change our root dir for the php app \
     && sed -i 's/;chdir = \/var\/www/chdir = \/app\/web/' /usr/local/etc/php-fpm.d/www.conf
 
-ENTRYPOINT ["/entry.sh"]
+# Base entrypoint would run php-fpm
+ENTRYPOINT [ "/usr/bin/supervisord" ]
