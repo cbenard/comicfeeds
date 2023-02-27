@@ -3,8 +3,10 @@ This application creates feeds from comic feeds that include the images. It does
 
 Please see my [blog post](http://chrisbenard.net/2013/06/28/how-to-fix-the-dilbert.com-rss-feed/) for more information on background and usage.
 
+## Dilbert
+Dilber has been removed due to [current events](https://www.cnn.com/2023/02/27/media/dilbert-distributor-scott-adams/index.html) relating to its author.
+
 ## Example feeds
-* [Dilbert](http://comicfeeds.chrisbenard.net/view/dilbert/default)
 * [Penny-Arcade](http://comicfeeds.chrisbenard.net/view/pennyarcade/default)
 
 ## Easily Test with Docker
@@ -45,7 +47,7 @@ Please see my [blog post](http://chrisbenard.net/2013/06/28/how-to-fix-the-dilbe
     ```* */2 * * * /path/to/app/scripts/fetch.php 2>&1```
 
 ## Contributing
-Pull requests are welcome, especially to include more comic providers. Please see the [Dilbert Service](classes/DilbertService.php) (multiple sub-feeds) and [Penny-Arcade Service](classes/PennyArcadeService.php) (single feed) for examples.
+Pull requests are welcome, especially to include more comic providers. Please see the [Penny-Arcade Service](classes/PennyArcadeService.php) (single feed) for an example.
 
 ## License
 This software is licensed under the GPL. See [LICENSE.md](LICENSE.md) for more information.

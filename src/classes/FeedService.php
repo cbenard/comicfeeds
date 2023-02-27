@@ -8,7 +8,6 @@ use Exception;
 class FeedService
 {
 	private $feedList = [
-		'dilbert' => DilbertService::class,
 		'pennyarcade' => PennyArcadeService::class,
 		'pvp' => PVPService::class,
 		'tabletitans' => TableTitansService::class

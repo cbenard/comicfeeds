@@ -60,17 +60,6 @@ class FeedServiceTest extends TestCase {
 		$this->assertEquals("http://www.google.com", $url);
 	}
 	
-	public function test_parses_image_url_dilbert() {
-		$feed = $this->container->get(FeedService::class);
-		$contents = file_get_contents(__DIR__ . '/assets/dilbert.comicpage.html');
-		$expectedUrl = "http://assets.amuniversal.com/e0c30550fd6e0132ef1a005056a9545d";
-		$pattern = '/data-image="(.+?)"/';
-		
-		$imageUrl = $feed->getImageUrl($contents, $pattern);
-		
-		$this->assertEquals($expectedUrl, $imageUrl);
-	}
-	
 	public function test_parses_image_url_pennyarcade() {
 		$feed = $this->container->get(FeedService::class);
 		$contents = file_get_contents(__DIR__ . '/assets/pennyarcade.comicpage.html');

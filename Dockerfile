@@ -46,10 +46,9 @@ VOLUME /app/cache
 RUN cat /crontab.txt >> /etc/crontabs/root \
     && chmod 755 /serve.sh /fetch.sh \
     && cd /app \
+    && /composer install \
+    && /app/vendor/bin/phpunit \
     && /composer install --no-dev \
-    && /composer require phpunit/phpunit \
-    && /app/vendor/phpunit/phpunit/phpunit \
-    && /composer remove phpunit/phpunit \
     && rm /composer \
     # Change our root dir for the php app \
     && sed -i 's/;chdir = \/var\/www/chdir = \/app\/web/' /usr/local/etc/php-fpm.d/www.conf \
